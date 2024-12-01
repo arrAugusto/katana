@@ -9,6 +9,7 @@ def process_video():
         return
 
     while True:
+        # Lee un frame desde la cámara
         ret, frame = cap.read()
         if not ret:
             print("No se pudo leer el frame")
@@ -28,7 +29,7 @@ def process_video():
         contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
         # Variables para mostrar la dirección
-        direction = "No Detectada"
+        direction = "Detener"  # Por defecto, el movimiento está detenido
 
         if contours:
             # Seleccionar el contorno más grande
@@ -53,7 +54,7 @@ def process_video():
                 # Dibujar el centroide en el frame
                 cv2.circle(frame, (cx, cy), 10, (0, 255, 0), -1)
 
-        # Dibujar texto en el frame
+        # Dibujar texto en el frame con la dirección detectada
         cv2.putText(frame, f"Direccion: {direction}", (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
 
         # Mostrar el frame
